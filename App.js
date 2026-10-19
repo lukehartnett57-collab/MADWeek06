@@ -17,11 +17,21 @@ export default function App() {
     balcony: 0,
   });
 
-  async function saveData() {
-    await AsyncStorage.setItem(uuid, JSON.stringify(booking));
-    alert("Saved with UUID: " + uuid);
-    Alert.alert("Saved with UUID: " + uuid);
+async function saveData() {
+  await AsyncStorage.setItem(uuid, JSON.stringify(booking));
+  alert("Saved with UUID: " + uuid);
+  Alert.alert("Saved with UUID: " + uuid);
+}
+
+async function getData() {
+    try {
+    let thisBooking = await AsyncStorage.getItem(uuid);
+    let parsedBooking = JSON.parse(thisBooking);
+    alert("Movie Title: " + parsedBooking.movieTitle);
+  } catch (error) {
+    alert("Error getting data: " + error.message);
   }
+}
 
   return (
     <View style={styles.screencontainer}>
@@ -50,6 +60,10 @@ export default function App() {
   <Text style={{fontSize: 24, fontWeight: "bold"}}>Save Data</Text>
 </TouchableOpacity>
 
+<TouchableOpacity style={styles.button} onPress={getData}>
+  <Text style={{fontSize: 24, fontWeight: "bold"}}>Get Data</Text>
+</TouchableOpacity>
+
     </View>
   );
 }
@@ -75,5 +89,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "start",
     padding: "10%"
-  }
+  },
+
+  button: {
+  padding: 10,
+  alignItems: "center"
+}
 });
