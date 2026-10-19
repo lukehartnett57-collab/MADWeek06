@@ -1,10 +1,13 @@
-import { StyleSheet, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Image, Dimensions, Alert, Text, TouchableOpacity } from 'react-native';
 import { useState } from 'react';
+import * as Crypto from 'expo-crypto';
 import Swiper from 'react-native-swiper';
 import PersonalInfo from './components/PersonalInfo';
 import MovieBooking from './components/MovieBooking';
 
 export default function App() {
+
+  var uuid = Crypto.randomUUID();
 
   const [booking, setBooking] = useState({
     bookDate: "2026-10-19",
@@ -13,28 +16,37 @@ export default function App() {
     balcony: 0,
   });
 
+  async function saveData() {
+    alert("Saved with UUID: " + uuid);
+    Alert.alert("Saved with UUID: " + uuid);
+  }
+
   return (
     <View style={styles.screencontainer}>
-      
+
       <View style={styles.imgview}>
         <Image source={require('./assets/moviesV3.png')} />
       </View>
 
       <Swiper showsButtons={true}>
-        
-        <PersonalInfo 
+
+        <PersonalInfo
           screenstyle={styles.screen}
           data={booking}
           setData={setBooking}
         />
 
-        <MovieBooking 
+        <MovieBooking
           screenstyle={styles.screen}
           data={booking}
           setData={setBooking}
         />
 
       </Swiper>
+      
+      <TouchableOpacity style={styles.button} onPress={saveData}>
+  <Text style={{fontSize: 24, fontWeight: "bold"}}>Save Data</Text>
+</TouchableOpacity>
 
     </View>
   );
@@ -48,7 +60,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: .5,
     marginTop: "8%"
-  }, 
+  },
 
   screencontainer: {
     flexDirection: "column",
