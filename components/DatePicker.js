@@ -18,7 +18,7 @@ export default function DatePicker({thisDate, setThisdate, datelabel}) {
   return (
     <>
     <Text style={styles.label}>{datelabel}</Text>
-    <View style={{flex:1,width: "100%"}} >
+    <View style={{width: "100%"}} >
       
       <Text style={styles.textbox}>{thisDate.toLocaleDateString()}</Text>
       <TouchableOpacity style={styles.button} onPress={showDatePicker}><Text style={{fontSize: 24, fontWeight: "bold"}}>Choose Date</Text></TouchableOpacity>
